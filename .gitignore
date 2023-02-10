@@ -1,0 +1,9 @@
+.idea
+__pycache__
+*.log
+*_log.txt
+.~*
+*.db
+*.py_
+banks/
+credentials.py
