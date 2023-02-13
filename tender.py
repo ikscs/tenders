@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup as bs
 from core.core_io import load_table, add_record
 from core.play import Playwright
 
+import os
 import telebot
 from datetime import datetime
 import random
@@ -84,7 +85,8 @@ class Report:
         self.header = '<b>-= Tenders weekly report =-</b>\n'
 
     def make_footer(self):
-        with open('bender.txt', encoding='utf-8') as f:
+        current_dir = os.path.dirname(os.path.realpath(__file__))
+        with open(current_dir + '/bender.txt', encoding='utf-8') as f:
             lines = f.read().splitlines()
         line = random.choice(lines)
         self.footer = f'\n---\n<i>{line}</i>\n'
