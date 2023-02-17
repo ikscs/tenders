@@ -58,14 +58,16 @@ class TN_receiver:
 
 class Report:
     def __init__(self):
-        self.body = '<code>'
+        self.body = ''
 
     def __call__(self, client, counter1, counter2, counter3):
         name = self.split_name(client)
+        self.body += '<code>'
         if counter3:
-            self.body += f'{name}{counter1:>5}{counter2:>5}{counter3:>5}\n'
+            self.body += f'{name}{counter1:>5}{counter2:>5}{counter3:>5}'
         else:
-            self.body += f'{name}   zero tenders\n'
+            self.body += f'{name}   zero tenders'
+        self.body += '</code>\n'
 
     def split_name(self, name):
         first_line = ''
@@ -79,7 +81,10 @@ class Report:
 
     def add_info(self, client, info):
         name = self.split_name(client)
-        self.body += f'{name}{info}\n'
+        self.body += '<code>'
+        self.body += f'{name}{info}'
+        self.body += '</code>\n'
+        pass
 
     def make_header(self):
         self.header = '<b>-= Tenders weekly report =-</b>\n'
@@ -94,7 +99,6 @@ class Report:
     @property
     def text(self):
         self.make_header()
-        self.body += '</code>'
         self.make_footer()
         return self.header + self.body + self.footer
 
@@ -336,13 +340,8 @@ parsers = {
             'UKRSIBBANK': ('playwright', 0, tenders_x),
             'Український банк реконструкції та розвитку': ('requests', 0, tenders_x),
             'Forward Bank': ('requests', 0, tenders_forward),
-            'U.S. Embassy': ('requests', 0, tenders_usembassy),
+            'U.S. Embassy': ('playwright', 0, tenders_usembassy),
           }
-
-#parsers = {
-#            'U.S. Embassy': ('requests', 0, tenders_usembassy),
-#          }
-
 
 if __name__ == '__main__':
     bot = telebot.TeleBot(TOKEN)
