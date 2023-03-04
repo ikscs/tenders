@@ -175,7 +175,8 @@ def tenders_otp(content, receiver):
     if not content: return
     for part in content.find_all('td', {'data-label' : 'Назва'}):
         title = part.contents[0].text.strip()
-        link = part.find('a').attrs['href']
+        link = part.find('a', href=True)
+        link = link.attrs['href'] if link else None
         receiver(title, link)
 
 def tenders_oshadbank(content, receiver):
